@@ -35,7 +35,7 @@ def try_prefixes(path, prefixes):
     return path
 
 
-def get_includes(filename, prefixes):
+def get_includes(filename, prefixes, encoding):
     '''
     Parses out the includes from a file.
 
@@ -47,7 +47,7 @@ def get_includes(filename, prefixes):
         A list of includes for the file.
     '''
     includes = set()
-    with open(filename) as source:
+    with open(filename, encoding=encoding) as source:
         for line in source:
             match = INCLUDE_PATTERN.match(line)
             if match is not None:
@@ -95,7 +95,7 @@ def walk(graph, args):
                 if os.path.isdir(filename):
                     log.debug('%s is a directory, skipping', filename)
                     continue
-                includes = get_includes(filename, [path] + args.prefixes)
+                includes = get_includes(filename, [path] + args.prefixes, args.encoding)
                 graph.add(filename, includes)
 
     log.debug('Resulting graph: %s', repr(graph))

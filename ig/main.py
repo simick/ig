@@ -42,6 +42,11 @@ def parse_arguments(args):
                         default=['*.[ch]pp', '*.[ch]'],
                         dest='patterns',
                         help='The file (glob) patterns to look for')
+    parser.add_argument('--encoding',
+                        action='store',
+                        default='utf-8',
+                        dest='encoding',
+                        help='The encoding of the source files')
     parser.add_argument('-i', '-I', '--prefix',
                         action='append',
                         dest='prefixes',
